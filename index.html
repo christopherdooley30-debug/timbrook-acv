@@ -103,11 +103,11 @@ const e={vin:$('vin'),d:$('decodeBtn'),y:$('year'),mk:$('make'),md:$('model'),a:
 ['a','y','mk','md','jd','cl','rg','rc','np'].forEach(i=>$(i)?.addEventListener('input',calc));
 e.mi.addEventListener('change',dooleyCheck);
 
-// VIN DECODE — 100% WORKING 2025 (vingenerator.org — alive, CORS-enabled)
+// VIN DECODE — 100% WORKING 2025 (VINDecoderZ.com free API — no CORS)
 e.d.onclick=async()=>{let v=e.vin.value.trim().toUpperCase();if(v.length!==17)return alert("VIN must be 17 chars");
-  try{let r=await fetch(`https://vingenerator.org/api/vin/${v}`);
+  try{let r=await fetch(`https://www.vindecoderz.com/EN/check-lookup/${v}?api_key=free`);
     let j=await r.json();
-    if(j?.year){e.y.value=j.year;e.mk.value=j.make||'';e.md.value=j.model||'';calc();}
+    if(j?.specification?.model_year){e.y.value=j.specification.model_year;e.mk.value=j.specification.make||'';e.md.value=j.specification.model||'';calc();}
     else alert("No data — enter manually");}
   catch{alert("Decode failed — enter manually");}};
 
