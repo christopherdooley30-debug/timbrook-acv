@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Timbrook Honda – Motorcycle Trade ACV</title>
+<style>
+  :root{--red:#f94144;--red-dark:#d90429;--bg:#1d1d1d;--card:#2a2a2a;--text:#fff;--input:#333;--border:#555}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.4}
+  header{background:linear-gradient(135deg,var(--red),var(--red-dark));padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  header img{height:90px;width:auto}
+  h1{font-weight:800;font-size:2.1rem;color:#fff;text-align:center;flex:1;min-width:280px;margin:0}
+  .page{max-width:1150px;margin:0 auto;padding:10px}
+  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+  label{display:block;font-weight:700;color:var(--red);font-size:.9rem;margin-bottom:4px}
+  input[type=text],input[type=number]{width:100%;padding:9px;border-radius:8px;border:2px solid var(--border);background:var(--input);color:#fff;font-size:.95rem}
+  input:focus{outline:none;border-color:var(--red)}
+  #storeGroup{display:flex;justify-content:center;gap:28px;margin-top:6px}
+  .radio{display:flex;align-items:center;gap:7px}
+  .radio label{font-size:.9rem;cursor:pointer}
+  .val{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(min-width:768px){.val{grid-template-columns:repeat(3,1fr)}}
+  button{background:var(--red);color:#fff;border:none;padding:11px 26px;border-radius:9px;cursor:pointer;font-weight:700;font-size:1rem;min-width:230px}
+  button:hover{background:var(--red-dark)}
+  button:disabled{background:#666;cursor:not-allowed}
+  #decodeBtn{margin-top:8px;width:100%}
+  #acvBox{background:var(--card);padding:16px;border-radius:10px;font-size:2rem;font-weight:800;color:var(--red);text-align:center;min-width:340px;display:inline-block;box-shadow:0 6px 24px rgba(249,65,68,.3);border:2px solid var(--red)}
+  #saveWrap{grid-column:1/-1;display:flex;justify-content:center;margin:10px 0 8px}
+  .required-hint{grid-column:1/-1;text-align:center;color:#ff8e8eff;font-size:.85rem;margin:8px 0}
+  #dooleyOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;z-index:9999;justify-content:center;align-items:center}
+  #dooleyBox{background:#111;color:#fff;padding:40px;border-radius:20px;text-align:center;max-width:90%;box-shadow:0 0 40px var(--red);border:4px solid var(--red)}
+  #dooleyBox h2{font-size:2.5rem;margin-bottom:25px;color:var(--red)}
+  #dooleyClose{margin-top:30px;padding:12px 30px;background:var(--red);color:white;border:none;border-radius:10px;font-size:1.2rem;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.imgur.com/2CIxx8Q.png" alt="Cumberland">
+  <h1>Motorcycle Trade ACV</h1>
+  <img src="https://i.imgur.com/I21A06I.png" alt="Winchester">
+</header>
+
+<div class="page">
+  <div class="grid">
+    <div class="card">
+      <label>Customer Name</label><input id="cName">
+      <label style="margin-top:8px">Appraiser</label><input id="appraiser">
+      <label style="margin-top:8px">Store</label>
+      <div id="storeGroup">
+        <label><input type="radio" name="store" value="Winchester"> Winchester</label>
+        <label><input type="radio" name="store" value="Cumberland"> Cumberland</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>VIN (optional)</label>
+      <input id="vin" maxlength="17" placeholder="17 digits">
+      <button id="decodeBtn">Decode VIN</button>
+    </div>
+
+    <div class="card">
+      <label>Year</label><input id="year">
+      <label>Make</label><input id="make">
+      <label>Model</label><input id="model">
+    </div>
+
+    <div class="card val" style="grid-column:1/-1">
+      <div><label>JD Retail ($)</label><input id="jd" type="number" step="0.01"></div>
+      <div><label>Clean Trade ($)</label><input id="clean" type="number" step="0.01"></div>
+      <div><label>Rough Trade ($)</label><input id="rough" type="number" step="0.01"></div>
+      <div><label>Service ($)</label><input id="recon" type="number" step="0.01"></div>
+      <div><label>NPA Offer ($)</label><input id="npa" type="number" step="0.01"></div>
+      <div><label>Mileage</label><input id="miles" type="number"></div>
+    </div>
+
+    <div class="card" style="grid-column:1/-1">
+      <label>Notes</label><input id="notes">
+    </div>
+
+    <div class="required-hint">
+      Fill Appraiser • Store • Year • Make • Model to enable Save
+    </div>
+
+    <div style="grid-column:1/-1;text-align:center">
+      <div id="acvBox">Enter values → ACV appears here</div>
+    </div>
+
+    <div id="saveWrap"><button id="saveBtn" disabled>Save & Log Appraisal</button></div>
+  </div>
+</div>
+
+<!-- DOOLEY -->
+<div id="dooleyOverlay">
+  <div id="dooleyBox">
+    <h2>Uh-oh, big guy.<br>This one’s above our pay grade.<br>Better bring in Dooley.</h2>
+    <button id="dooleyClose">Close</button>
+  </div>
+</div>
+
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbybDOB9aIZ8vYJPx_efJDHLGsOVYKMMUPKZ6yGcLg9loyaFJv9EkyPV6GfN7oPw6qFW/exec";
+const $=(i)=>document.getElementById(i);
+const e={vin:$('vin'),d:$('decodeBtn'),y:$('year'),mk:$('make'),md:$('model'),a:$('appraiser'),c:$('cName'),
+         jd:$('jd'),cl:$('clean'),rg:$('rough'),rc:$('recon'),np:$('npa'),mi:$('miles'),n:$('notes'),acv:$('acvBox'),sv:$('saveBtn')};
+
+['a','y','mk','md','jd','cl','rg','rc','np','mi'].forEach(i=>$(i)?.addEventListener('input',calc));
+
+// VIN DECODE — WORKS ON GITHUB PAGES (no CORS issues)
+e.d.onclick=async()=>{let v=e.vin.value.trim().toUpperCase();if(v.length!==17)return alert("VIN must be 17 chars");
+  try{let r=await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/${v}?format=json`);
+    let j=await r.json();let d=j.Results?.[0];
+    if(d?.ModelYear){e.y.value=d.ModelYear;e.mk.value=d.Make||'';e.md.value=d.Model||'';calc();}
+    else alert("No data — enter manually");}
+  catch{alert("Decode failed — enter manually");}};
+
+// ACV + Dooley
+function calc(){
+  let cl=+(e.cl.value)||0,rg=+(e.rg.value)||0,np=+(e.np.value)||0,re=+(e.rc.value)||0,mi=+(e.mi.value)||0,
+      jd=+(e.jd.value)||0;
+
+  let base=(cl+rg+np)/3;
+  if(np>=cl&&cl>0)base=(rg*1.4+np*1.4+cl*0.2)/3;
+  let pen=mi>10000?(mi-10000)*0.06:0;
+  let pre=base-re-pen;
+
+  let disc=jd>=21000?0.95:jd>=10000?0.90:0.85;
+  let acv=pre*disc;
+
+  e.acv.innerHTML=isFinite(acv)?`FINAL ACV<br><strong>${new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(acv)}</strong>`:"Enter values → ACV appears here";
+
+  let ready=e.a.value.trim()&&document.querySelector('input[name="store"]:checked')&&e.y.value&&e.mk.value&&e.md.value;
+  e.sv.disabled=!ready;
+
+  if(jd>0&&cl>=0&&rg>=0&&np>=0&&re>=0&&mi>=0&&acv<jd*0.7){
+    document.getElementById("dooleyOverlay").style.display="flex";
+  }
+}
+
+// Close Dooley
+document.getElementById("dooleyClose").onclick=document.getElementById("dooleyOverlay").onclick=(ev)=>{
+  if(ev.target.id==="dooleyOverlay")document.getElementById("dooleyOverlay").style.display="none";
+};
+
+// SAVE
+e.sv.onclick=()=>{
+  e.sv.disabled=true;e.sv.textContent="Saving...";
+  let store=document.querySelector('input[name="store"]:checked')?.value||'';
+  let acvTxt=e.acv.querySelector('strong')?.textContent||'0';
+
+  let p={
+    action:"save",timestamp:new Date().toISOString(),
+    customerName:e.c.value.trim(),appraiser:e.a.value.trim(),store,
+    vin:e.vin.value.trim(),year:e.y.value,make:e.mk.value,model:e.md.value,
+    jdRetail:+(e.jd.value)||0,cleanTrade:+(e.cl.value)||0,roughTrade:+(e.rg.value)||0,
+    serviceEstimate:+(e.rc.value)||0,npaOffer:+(e.np.value)||0,
+    mileage:+(e.mi.value)||0,acv:acvTxt.replace(/[^0-9.-]/g,''),notes:e.n.value
+  };
+
+  let f=document.createElement('form');
+  f.method='POST';f.action=SCRIPT_URL;f.target='if';f.style.display='none';
+  let i=document.createElement('input');
+  i.name='payload';i.value=JSON.stringify(p);
+  f.appendChild(i);document.body.appendChild(f);f.submit();f.remove();
+
+  alert("Saved & logged!");
+  document.querySelectorAll('input:not([type="radio"])').forEach(x=>x.value='');
+  document.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);
+  e.acv.innerHTML="Enter values → ACV appears here";
+  e.sv.disabled=false;e.sv.textContent="Save & Log Appraisal";
+};
+
+// Hidden iframe
+let ifram=document.createElement('iframe');
+ifram.name='if';ifram.style.display='none';
+document.body.appendChild(ifram);
+
+calc();
+</script>
+</body>
+</html>
