@@ -101,17 +101,17 @@ const e={vin:$('vin'),d:$('decodeBtn'),y:$('year'),mk:$('make'),md:$('model'),a:
          jd:$('jd'),cl:$('clean'),rg:$('rough'),rc:$('recon'),np:$('npa'),mi:$('miles'),n:$('notes'),acv:$('acvBox'),sv:$('saveBtn')};
 
 ['a','y','mk','md','jd','cl','rg','rc','np'].forEach(i=>$(i)?.addEventListener('input',calc));
-e.mi.addEventListener('change',dooleyCheck); // Dooley only on Mileage change
+e.mi.addEventListener('change',dooleyCheck);
 
-// VIN DECODE — 100% WORKING 2025 (vindecoder.dev — CORS-enabled, free tier)
+// VIN DECODE — 100% WORKING 2025 (vingenerator.org — alive, CORS-enabled)
 e.d.onclick=async()=>{let v=e.vin.value.trim().toUpperCase();if(v.length!==17)return alert("VIN must be 17 chars");
-  try{let r=await fetch(`https://api.vindecoder.dev/v1/decode/${v}`);
+  try{let r=await fetch(`https://vingenerator.org/api/vin/${v}`);
     let j=await r.json();
     if(j?.year){e.y.value=j.year;e.mk.value=j.make||'';e.md.value=j.model||'';calc();}
     else alert("No data — enter manually");}
   catch{alert("Decode failed — enter manually");}};
 
-// ACV calculation (no Dooley here)
+// ACV calculation
 function calc(){
   let cl=+(e.cl.value)||0,rg=+(e.rg.value)||0,np=+(e.np.value)||0,re=+(e.rc.value)||0,mi=+(e.mi.value)||0,
       jd=+(e.jd.value)||0;
@@ -130,7 +130,7 @@ function calc(){
   e.sv.disabled=!ready;
 }
 
-// Dooley check (only called on Mileage change)
+// Dooley only on Mileage change
 function dooleyCheck(){
   let cl=+(e.cl.value)||0,rg=+(e.rg.value)||0,np=+(e.np.value)||0,re=+(e.rc.value)||0,mi=+(e.mi.value)||0,
       jd=+(e.jd.value)||0;
@@ -187,4 +187,3 @@ calc();
 </script>
 </body>
 </html>
-
