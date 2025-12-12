@@ -1,319 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Timbrook Honda – Motorcycle Trade ACV</title>
+<meta charset="UTF-8">
+<title>Timbrook ACV Calculator</title>
 
+<!-- Full-width body, centered content -->
 <style>
-  :root{--red:#f94144;--red-dark:#d90429;--bg:#1d1d1d;--card:#2a2a2a;--text:#fff;--input:#333;--border:#555}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.4}
-  header{background:linear-gradient(135deg,var(--red),var(--red-dark));padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
-  header img{height:90px;width:auto}
-  h1{font-weight:800;font-size:2.1rem;color:#fff;text-align:center;flex:1;min-width:280px;margin:0}
-  .page{max-width:1150px;margin:0 auto;padding:10px}
-  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-  .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.5);text-align:center}
-  label{display:block;font-weight:700;color:var(--red);font-size:.9rem;margin-bottom:6px}
-  input[type=text],input[type=number]{width:100%;padding:10px;border-radius:8px;border:2px solid var(--border);background:var(--input);color:#fff;font-size:1rem;text-align:center}
-  input:focus{outline:none;border-color:var(--red)}
-  #storeGroup{display:flex;justify-content:center;gap:30px;margin-top:8px;flex-wrap:wrap}
-  .radio{display:flex;align-items:center;gap:8px;color:#fff}
-  button{background:var(--red);color:#fff;border:none;padding:12px 28px;border-radius:9px;cursor:pointer;font-weight:700;font-size:1.1rem;min-width:240px}
-  button:hover{background:var(--red-dark)}
-  button:disabled{background:#666;cursor:not-allowed}
-  #acvBox{background:var(--card);padding:20px;border-radius:12px;font-size:2.3rem;font-weight:800;color:var(--red);text-align:center;border:3px solid var(--red);box-shadow:0 8px 30px #f9414466}
-  #saveWrap{grid-column:1/-1;display:flex;justify-content:center;margin:20px 0}
-  .required-hint{grid-column:1/-1;text-align:center;color:#ff8e8e;font-size:.9rem;margin:10px 0}
-  #dooleyOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000d;z-index:9999;justify-content:center;align-items:center}
-  #dooleyBox{background:#111;color:#fff;padding:50px;border-radius:25px;text-align:center;max-width:90%;box-shadow:0 0 50px var(--red);border:5px solid var(--red)}
-  #dooleyBox h2{font-size:2.8rem;margin-bottom:30px;color:var(--red);line-height:1.2}
-  #dooleyClose{margin-top:35px;padding:14px 40px;background:var(--red);color:#fff;border:none;border-radius:12px;font-size:1.4rem;cursor:pointer}
-  .val{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  @media(max-width:900px){.val{grid-template-columns:1fr 1fr}}
-  @media(max-width:600px){.val{grid-template-columns:1fr}}
+    body {
+        margin: 0;
+        background: #1e1e1e;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        width: 180px;
+        margin-bottom: 10px;
+    }
+
+    .input-section {
+        background: #2a2a2a;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    label {
+        display: block;
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border: 1px solid #555;
+        background: #111;
+        color: white;
+    }
+
+    .radio-row {
+        margin-top: 8px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .acv-box {
+        margin-top: 25px;
+        padding: 20px;
+        background: #111;
+        border: 2px solid #ff0000;
+        border-radius: 12px;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    button {
+        background: #c40000;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        margin-top: 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        width: 100%;
+    }
 </style>
+
 </head>
 <body>
 
-<header>
-  <img src="https://i.imgur.com/2CIxx8Q.png" alt="Timbrook Honda of Cumberland">
-  <h1>🏍️ Motorcycle Trade ACV</h1>
-  <img src="https://i.imgur.com/I21A06I.png" alt="Timbrook Honda of Winchester">
-</header>
+<div class="container">
 
-<div class="page">
-  <div class="grid">
-    
-    <!-- CUSTOMER / APPRAISER / STORE -->
-    <div class="card">
-      <label>Customer Name</label>
-      <input id="customerName" type="text">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Honda_logo.svg/2560px-Honda_logo.svg.png" class="logo">
 
-      <label style="margin-top:8px">Appraiser</label>
-      <input id="appraiser" type="text">
+    <h1>🏍️ Timbrook Powersports ACV Calculator</h1>
 
-      <label style="margin-top:8px">Store</label>
-      <div id="storeGroup">
-        <div class="radio"><input type="radio" name="store" value="Winchester" id="win"><label for="win">Winchester</label></div>
-        <div class="radio"><input type="radio" name="store" value="Cumberland" id="cumb"><label for="cumb">Cumberland</label></div>
-      </div>
+    <div class="input-section">
+
+        <label>Store</label>
+        <div class="radio-row">
+            <label><input type="radio" name="store" value="Cumberland"> Cumberland</label>
+            <label><input type="radio" name="store" value="Winchester"> Winchester</label>
+        </div>
+
+        <label>Appraiser</label>
+        <input id="appraiser">
+
+        <label>Customer Name</label>
+        <input id="customerName">
+
+        <label>VIN</label>
+        <input id="vin">
+
+        <button onclick="decodeVIN()">Decode VIN</button>
+
+        <label>Year</label>
+        <input id="year">
+
+        <label>Make</label>
+        <input id="make">
+
+        <label>Model</label>
+        <input id="model">
+
+        <label>JD Retail</label>
+        <input id="jdRetail" type="number">
+
+        <label>Clean Trade</label>
+        <input id="cleanTrade" type="number">
+
+        <label>Rough Trade</label>
+        <input id="roughTrade" type="number">
+
+        <label>Service Estimate</label>
+        <input id="serviceEstimate" type="number">
+
+        <label>NPA Offer</label>
+        <input id="npaOffer" type="number">
+
+        <label>Mileage</label>
+        <input id="mileage" type="number">
+
+        <label>Notes</label>
+        <textarea id="notes"></textarea>
+
+        <div class="acv-box" id="acvBox">
+            ACV: $0
+        </div>
+
+        <button onclick="saveACV()">Save Appraisal</button>
+
     </div>
-
-    <!-- VIN -->
-    <div class="card">
-      <label>VIN (optional)</label>
-      <input id="vin" type="text" maxlength="17" placeholder="17 digits">
-      <div id="vinStatus" style="margin-top:8px;font-size:.9rem;color:#bbb;"></div>
-    </div>
-
-    <!-- YEAR MAKE MODEL -->
-    <div class="card">
-      <label>Year</label><input id="year" type="text">
-      <label>Make</label><input id="make" type="text">
-      <label>Model</label><input id="model" type="text">
-    </div>
-
-    <!-- VALUES -->
-    <div class="card val" style="grid-column:1/-1">
-      <div><label>JD Retail ($)</label><input id="jdRetail" type="number"></div>
-      <div><label>Clean Trade ($)</label><input id="cleanTrade" type="number"></div>
-      <div><label>Rough Trade ($)</label><input id="roughTrade" type="number"></div>
-      <div><label>Service ($)</label><input id="recon" type="number"></div>
-      <div><label>NPA Offer ($)</label><input id="npaOffer" type="number"></div>
-      <div><label>Mileage</label><input id="mileage" type="number"></div>
-    </div>
-
-    <!-- NOTES -->
-    <div class="card" style="grid-column:1/-1">
-      <label>Notes</label>
-      <input id="notes" type="text">
-    </div>
-
-    <div class="required-hint">Fill Appraiser • Store • Year • Make • Model to enable Save</div>
-
-    <div style="grid-column:1/-1;text-align:center">
-      <div id="acvBox">Enter values → ACV appears here</div>
-    </div>
-
-    <div id="saveWrap">
-      <button id="saveBtn" disabled>Save & Log Appraisal</button>
-    </div>
-
-  </div>
 </div>
 
-<!-- DOOLEY POP-UP -->
-<div id="dooleyOverlay">
-  <div id="dooleyBox">
-    <h2>Uh-oh, big guy.<br>This one’s above our pay grade.<br>Better bring in Dooley.</h2>
-    <button id="dooleyClose">Close</button>
-  </div>
-</div>
 
 <script>
-(() => {
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybDOB9aIZ8vYJPx_efJDHLGsOVYKMMUPKZ6yGcLg9loyaFJv9EkyPV6GfN7oPw6qFW/exec";
 
-  /* ---------------------------------------------------
-      SET YOUR GOOGLE SCRIPT URL HERE
-  --------------------------------------------------- */
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybDOB9aIZ8vYJPx_efJDHLGsOVYKMMUPKZ6yGcLg9loyaFJv9EkyPV6GfN7oPw6qFW/exec";
-
-  const $ = id => document.getElementById(id);
-
-  const els = {
-    year: $('year'), make: $('make'), model: $('model'),
-    vin: $('vin'), vinStatus: $('vinStatus'),
-    appraiser: $('appraiser'), customerName: $('customerName'),
-    jdRetail: $('jdRetail'), cleanTrade: $('cleanTrade'), roughTrade: $('roughTrade'),
-    recon: $('recon'), npaOffer: $('npaOffer'), mileage: $('mileage'),
-    notes: $('notes'), acvBox: $('acvBox'), saveBtn: $('saveBtn')
-  };
-
-  /* ------------------------
-         VIN DECODER
-  -------------------------*/
-  els.vin.addEventListener("input", async () => {
-    const vin = els.vin.value.trim();
-
+/* ===========================
+   VIN DECODE (CORS-PROOF)
+   =========================== */
+async function decodeVIN() {
+    const vin = document.getElementById("vin").value.trim();
     if (vin.length !== 17) {
-      els.vinStatus.textContent = "VIN must be 17 characters";
-      return;
+        alert("VIN must be 17 characters");
+        return;
     }
-
-    els.vinStatus.textContent = "Decoding VIN…";
 
     try {
-      const res = await fetch(
-        "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinExtended/" + vin + "?format=json"
-      );
-      const data = await res.json();
+        const res = await fetch(`${SCRIPT_URL}?action=decodeVIN&vin=${vin}`);
+        const data = await res.json();
 
-      const results = data.Results || [];
+        if (!data.Results || !data.Results[0]) {
+            alert("Unable to decode VIN");
+            return;
+        }
 
-      const year = results.find(r => r.Variable === "Model Year")?.Value;
-      const make = results.find(r => r.Variable === "Make")?.Value;
-      const model = results.find(r => r.Variable === "Model")?.Value;
+        const result = data.Results[0];
 
-      if (year || make || model) {
-        if (year && !els.year.value)  els.year.value = year;
-        if (make && !els.make.value)  els.make.value = make;
-        if (model && !els.model.value) els.model.value = model;
-
-        els.vinStatus.textContent = "VIN decoded ✔";
-        calculate();
-      } else {
-        els.vinStatus.textContent = "No usable data. Please enter Year/Make/Model manually.";
-      }
+        document.getElementById("year").value = result.ModelYear || "";
+        document.getElementById("make").value = result.Make || "";
+        document.getElementById("model").value = result.Model || "";
 
     } catch (err) {
-      els.vinStatus.textContent = "Decoder error – enter manually.";
+        alert("VIN Decode Failed — Manual Entry OK");
     }
-  });
+}
 
-  /* ------------------------
-       ACV CALCULATION
-  -------------------------*/
-  const inputs = [
-    els.appraiser, els.year, els.make, els.model,
-    els.jdRetail, els.cleanTrade, els.roughTrade,
-    els.recon, els.npaOffer, els.mileage
-  ];
-  inputs.forEach(el => el.addEventListener('input', calculate));
-  els.mileage.addEventListener('change', dooleyCheck);
+/* ===========================
+   SAVE TO GOOGLE SHEET
+   =========================== */
+async function saveACV() {
 
-  function calculate() {
-    const clean = Number(els.cleanTrade.value) || 0;
-    const rough = Number(els.roughTrade.value) || 0;
-    const npa   = Number(els.npaOffer.value) || 0;
-    const recon = Number(els.recon.value) || 0;
-    const miles = Number(els.mileage.value) || 0;
-    const jd    = Number(els.jdRetail.value) || 0;
-
-    let base = (clean + rough + npa) / 3;
-    if (npa >= clean && clean > 0) {
-      base = (rough*1.4 + npa*1.4 + clean*0.2) / 3;
-    }
-
-    const mileagePenalty = miles > 10000 ? (miles - 10000) * 0.06 : 0;
-    const beforeDiscount = base - recon - mileagePenalty;
-
-    let discount = jd >= 21000 ? 0.95 : jd >= 10000 ? 0.90 : 0.85;
-    const acv = beforeDiscount * discount;
-
-    const formatted = new Intl.NumberFormat('en-US', {
-      style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0
-    }).format(acv);
-
-    els.acvBox.innerHTML = isFinite(acv)
-      ? `FINAL ACV<br><strong>${formatted}</strong>`
-      : "Enter values → ACV appears here";
-
-    const storeOk = document.querySelector('input[name="store"]:checked');
-    const ready = els.appraiser.value.trim()
-      && storeOk
-      && els.year.value.trim()
-      && els.make.value.trim()
-      && els.model.value.trim();
-
-    els.saveBtn.disabled = !ready;
-  }
-
-  function dooleyCheck() {
-    const clean = Number(els.cleanTrade.value) || 0;
-    const rough = Number(els.roughTrade.value) || 0;
-    const npa   = Number(els.npaOffer.value) || 0;
-    const recon = Number(els.recon.value) || 0;
-    const miles = Number(els.mileage.value) || 0;
-    const jd    = Number(els.jdRetail.value) || 0;
-
-    let base = (clean + rough + npa) / 3;
-    if (npa >= clean && clean > 0) {
-      base = (rough*1.4 + npa*1.4 + clean*0.2) / 3;
-    }
-
-    const mileagePenalty = miles > 10000 ? (miles - 10000) * 0.06 : 0;
-    const beforeDiscount = base - recon - mileagePenalty;
-
-    let discount = jd >= 21000 ? 0.95 : jd >= 10000 ? 0.90 : 0.85;
-    const acv = beforeDiscount * discount;
-
-    if (jd > 0 && acv < jd * 0.7) {
-      document.getElementById("dooleyOverlay").style.display = "flex";
-    }
-  }
-
-  document.getElementById("dooleyClose").onclick = () =>
-    document.getElementById("dooleyOverlay").style.display = "none";
-
-  document.getElementById("dooleyOverlay").onclick = (e) => {
-    if (e.target.id === "dooleyOverlay") {
-      document.getElementById("dooleyOverlay").style.display = "none";
-    }
-  };
-
-  /* ------------------------
-           SAVE
-  -------------------------*/
-  els.saveBtn.onclick = () => {
-    els.saveBtn.disabled = true;
-    els.saveBtn.textContent = "Saving…";
-
-    const store = document.querySelector('input[name="store"]:checked')?.value || '';
-    const acvText = els.acvBox.querySelector('strong')?.textContent || '0';
+    const acv = calculateACV();
+    document.getElementById("acvBox").innerText = "ACV: $" + acv;
 
     const payload = {
-      action: "save",
-      timestamp: new Date().toISOString(),
-      customerName: els.customerName.value.trim(),
-      appraiser: els.appraiser.value.trim(),
-      store,
-      vin: els.vin.value.trim(),
-      year: els.year.value,
-      make: els.make.value,
-      model: els.model.value,
-      jdRetail: Number(els.jdRetail.value)||0,
-      cleanTrade: Number(els.cleanTrade.value)||0,
-      roughTrade: Number(els.roughTrade.value)||0,
-      serviceEstimate: Number(els.recon.value)||0,
-      npaOffer: Number(els.npaOffer.value)||0,
-      mileage: Number(els.mileage.value)||0,
-      acv: acvText.replace(/[^0-9.-]/g,''),
-      notes: els.notes.value
+        action: "save",
+        timestamp: new Date().toISOString(),
+        customerName: document.getElementById("customerName").value,
+        appraiser: document.getElementById("appraiser").value,
+        store: document.querySelector("input[name='store']:checked")?.value || "",
+        vin: document.getElementById("vin").value,
+        year: document.getElementById("year").value,
+        make: document.getElementById("make").value,
+        model: document.getElementById("model").value,
+        jdRetail: document.getElementById("jdRetail").value,
+        cleanTrade: document.getElementById("cleanTrade").value,
+        roughTrade: document.getElementById("roughTrade").value,
+        serviceEstimate: document.getElementById("serviceEstimate").value,
+        npaOffer: document.getElementById("npaOffer").value,
+        mileage: document.getElementById("mileage").value,
+        acv: acv,
+        notes: document.getElementById("notes").value
     };
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = SCRIPT_URL;
-    form.target = 'hiddenIframe';
-    form.style.display = 'none';
+    await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+    });
 
-    const input = document.createElement('input');
-    input.name = 'payload';
-    input.value = JSON.stringify(payload);
-    form.appendChild(input);
+    alert("Appraisal Saved!");
+}
 
-    document.body.appendChild(form);
-    form.submit();
-    form.remove();
+/* ===========================
+   ACV CALCULATION
+   =========================== */
+function calculateACV() {
+    const retail = Number(document.getElementById("jdRetail").value) || 0;
+    const clean = Number(document.getElementById("cleanTrade").value) || 0;
+    const rough = Number(document.getElementById("roughTrade").value) || 0;
+    const svc = Number(document.getElementById("serviceEstimate").value) || 0;
+    const npa = Number(document.getElementById("npaOffer").value) || 0;
 
-    alert("Saved & logged successfully!");
-    
-    document.querySelectorAll('input:not([type="radio"])').forEach(i => i.value = '');
-    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-    els.acvBox.innerHTML = "Enter values → ACV appears here";
+    let base = (clean + retail + rough) / 3;
+    base = base - svc;
 
-    els.saveBtn.disabled = false;
-    els.saveBtn.textContent = "Save & Log Appraisal";
-  };
-
-  const iframe = document.createElement('iframe');
-  iframe.name = 'hiddenIframe';
-  iframe.style.display = 'none';
-  document.body.appendChild(iframe);
-
-})();
+    return Math.max(base, npa);
+}
 </script>
 
 </body>
