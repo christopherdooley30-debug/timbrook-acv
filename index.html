@@ -330,7 +330,7 @@
       els.acvBox.innerHTML = `FINAL ACV<br><strong>${formatted}</strong>`;
     }
 
-    return acv; // For use in save click
+    return acv;
   }
 
   function checkSave() {
@@ -341,23 +341,23 @@
     els.saveBtn.disabled = !ready;
   }
 
-  // Save click handler with Dooley check
+  // Save click handler with Dooley check (based on Clean Trade)
   els.saveBtn.onclick = () => {
     const acv = calculate(); // Get current ACV
-    const jd = Number(els.jdRetail.value) || 0;
+    const clean = Number(els.cleanTrade.value) || 0;
     const miles = Number(els.mileage.value) || 0;
 
-    // Option 1: Percentile-based threshold with mileage buffer
-    const baseThreshold = jd * 0.70; // 70% of retail (adjustable)
+    // Option 1: Percentile-based threshold using CLEAN TRADE
+    const baseThreshold = clean * 0.70; // 70% of Clean Trade
     const anomalyThreshold = miles > 15000 ? baseThreshold * 0.90 : baseThreshold; // 10% lower tolerance for high miles
 
-    const disparity = acv < anomalyThreshold && jd > 0 && acv > 0;
+    const disparity = acv < anomalyThreshold && clean > 0 && acv > 0;
 
     if (disparity) {
       // Show Dooley first
       document.getElementById("dooleyOverlay").style.display = "flex";
 
-      // Proceed with save after Dooley is closed
+      // Proceed with save after close
       const proceedAfterClose = () => {
         document.getElementById("dooleyOverlay").style.display = "none";
         performSave();
@@ -417,6 +417,16 @@
     els.saveBtn.disabled = false;
     els.saveBtn.textContent = "Save & Log Appraisal";
   }
+
+  // Close Dooley (fallback)
+  document.getElementById("dooleyClose").onclick = () => {
+    document.getElementById("dooleyOverlay").style.display = "none";
+  };
+  document.getElementById("dooleyOverlay").onclick = (e) => {
+    if (e.target === document.getElementById("dooleyOverlay")) {
+      document.getElementById("dooleyOverlay").style.display = "none";
+    }
+  };
 
   // Hidden iframe
   const iframe = document.createElement('iframe');
