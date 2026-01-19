@@ -1,244 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Timbrook ACV Calculator</title>
-
-<!-- Full-width body, centered content -->
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Timbrook Motorcycle Trade ACV Calculator</title>
+  <style>
     body {
-        margin: 0;
-        background: #1e1e1e;
-        font-family: Arial, sans-serif;
-        color: white;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #111;
+      color: #eee;
+    }
+    .header {
+      background-color: #c8102e; /* Red theme */
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.4em;
+      font-weight: bold;
     }
     .container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-        text-align: center;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
     }
-
-    h1 {
-        font-size: 32px;
-        margin-bottom: 10px;
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
     }
-
-    .logo {
-        width: 180px;
-        margin-bottom: 10px;
+    .section {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
     }
-
-    .input-section {
-        background: #2a2a2a;
-        padding: 20px;
-        border-radius: 12px;
-        margin-top: 20px;
-        text-align: left;
+    .full-width {
+      grid-column: span 3;
     }
-
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      background-color: #333;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input:disabled, textarea:disabled {
+      background-color: #222;
+      color: #777;
+    }
     label {
-        display: block;
-        margin-top: 12px;
-        font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
     }
-
-    input, select, textarea {
-        width: 100%;
-        padding: 8px;
-        margin-top: 6px;
-        border-radius: 6px;
-        border: 1px solid #555;
-        background: #111;
-        color: white;
+    .radio-group {
+      margin: 10px 0;
     }
-
-    .radio-row {
-        margin-top: 8px;
-        display: flex;
-        gap: 20px;
-        align-items: center;
+    .btn {
+      background-color: #c8102e;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
     }
-
-    .acv-box {
-        margin-top: 25px;
-        padding: 20px;
-        background: #111;
-        border: 2px solid #ff0000;
-        border-radius: 12px;
-        width: 60%;
-        margin-left: auto;
-        margin-right: auto;
-        font-size: 28px;
-        font-weight: bold;
+    .btn:disabled {
+      background-color: #555;
+      cursor: not-allowed;
     }
-
-    button {
-        background: #c40000;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        margin-top: 20px;
-        border-radius: 10px;
-        font-size: 18px;
-        cursor: pointer;
-        width: 100%;
+    .decode-btn {
+      background-color: #c8102e;
+      margin-top: 28px; /* Align better with other fields */
     }
-</style>
-
+    .decode-btn:disabled {
+      background-color: #555;
+    }
+    .acv-final {
+      text-align: center;
+      font-size: 2.2em;
+      background-color: #c8102e;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 30px 0;
+      font-weight: bold;
+    }
+    .footer-note {
+      text-align: center;
+      color: #aaa;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo {
+      max-width: 220px;
+      height: auto;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .full-width { grid-column: span 1; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <div class="header">
+    <div>Timbrook Motorcycle Trade ACV</div>
+    <div>OF WINCHESTER / CUMBERLAND</div>
+  </div>
 
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Honda_logo.svg/2560px-Honda_logo.svg.png" class="logo">
+  <div class="container">
 
-    <h1>🏍️ Timbrook Powersports ACV Calculator</h1>
+    <!-- Timbrook Logos (replace src with your actual uploaded images) -->
+    <div class="logo-container">
+      <img src="https://pictures.dealer.com/t/timbrookautomotive/1234/dde040f9cb2f436090d7a53a94d1f271.jpg" 
+           alt="Timbrook Automotive Logo" class="logo" style="margin: 0 20px;">
+      <!-- Add second logo if you have a variant, e.g. powersports -->
+      <!-- <img src="images/timbrook-powersports-logo.png" alt="Timbrook Powersports" class="logo"> -->
+    </div>
 
-    <div class="input-section">
-
-        <label>Store</label>
-        <div class="radio-row">
-            <label><input type="radio" name="store" value="Cumberland"> Cumberland</label>
-            <label><input type="radio" name="store" value="Winchester"> Winchester</label>
-        </div>
+    <div class="grid">
+      <div class="section">
+        <label>Customer Name</label>
+        <input type="text" value="Test">
 
         <label>Appraiser</label>
-        <input id="appraiser">
+        <input type="text" value="Dooley">
 
-        <label>Customer Name</label>
-        <input id="customerName">
+        <label>Store</label>
+        <div class="radio-group">
+          <input type="radio" name="store" id="winchester" checked>
+          <label for="winchester" style="display:inline;">Winchester</label>
+          &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="store" id="cumberland">
+          <label for="cumberland" style="display:inline;">Cumberland</label>
+        </div>
+      </div>
 
-        <label>VIN</label>
-        <input id="vin">
+      <div class="section">
+        <label>VIN (optional)</label>
+        <input type="text" value="1HFVE06F1S4500172">
 
-        <button onclick="decodeVIN()">Decode VIN</button>
+        <button class="btn decode-btn" disabled 
+                title="VIN decoder coming soon — awaiting API credentials from DataOne Software">
+          Decode VIN
+        </button>
+      </div>
 
+      <div class="section">
         <label>Year</label>
-        <input id="year">
+        <input type="text" disabled>
 
         <label>Make</label>
-        <input id="make">
+        <input type="text" disabled>
 
         <label>Model</label>
-        <input id="model">
-
-        <label>JD Retail</label>
-        <input id="jdRetail" type="number">
-
-        <label>Clean Trade</label>
-        <input id="cleanTrade" type="number">
-
-        <label>Rough Trade</label>
-        <input id="roughTrade" type="number">
-
-        <label>Service Estimate</label>
-        <input id="serviceEstimate" type="number">
-
-        <label>NPA Offer</label>
-        <input id="npaOffer" type="number">
-
-        <label>Mileage</label>
-        <input id="mileage" type="number">
-
-        <label>Notes</label>
-        <textarea id="notes"></textarea>
-
-        <div class="acv-box" id="acvBox">
-            ACV: $0
-        </div>
-
-        <button onclick="saveACV()">Save Appraisal</button>
-
+        <input type="text" disabled>
+      </div>
     </div>
-</div>
 
+    <div class="section full-width" style="margin-top:30px;">
+      <h3 style="margin-top:0; text-align:center; color:#c8102e;">JD Values</h3>
+      <div class="grid">
+        <div>
+          <label>JD Retail ($)</label>
+          <input type="text" disabled>
+        </div>
+        <div>
+          <label>Clean Trade ($)</label>
+          <input type="text" disabled>
+        </div>
+        <div>
+          <label>Rough Trade ($)</label>
+          <input type="text" disabled>
+        </div>
+      </div>
+    </div>
 
-<script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybDOB9aIZ8vYJPx_efJDHLGsOVYKMMUPKZ6yGcLg9loyaFJv9EkyPV6GfN7oPw6qFW/exec";
+    <div class="grid" style="margin-top:20px;">
+      <div class="section">
+        <label>Service ($)</label>
+        <input type="text" disabled>
+      </div>
+      <div class="section">
+        <label>NPA Offer ($)</label>
+        <input type="text" disabled>
+      </div>
+      <div class="section">
+        <label>Mileage</label>
+        <input type="text" disabled>
+      </div>
+    </div>
 
-/* ===========================
-   VIN DECODE (CORS-PROOF)
-   =========================== */
-async function decodeVIN() {
-    const vin = document.getElementById("vin").value.trim();
-    if (vin.length !== 17) {
-        alert("VIN must be 17 characters");
-        return;
-    }
+    <div class="section full-width" style="margin-top:20px;">
+      <label>Notes</label>
+      <textarea rows="4" disabled></textarea>
+    </div>
 
-    try {
-        const res = await fetch(`${SCRIPT_URL}?action=decodeVIN&vin=${vin}`);
-        const data = await res.json();
+    <div class="acv-final">
+      FINAL ACV<br>$0
+    </div>
 
-        if (!data.Results || !data.Results[0]) {
-            alert("Unable to decode VIN");
-            return;
-        }
+    <button class="btn" style="font-size:1.3em;" disabled>
+      Save & Log Appraisal
+    </button>
 
-        const result = data.Results[0];
+    <div class="footer-note">
+      Fill Appraiser • Store • Year • Make • Model to enable Save<br>
+      VIN Decoder & JD Power integration pending API credentials
+    </div>
 
-        document.getElementById("year").value = result.ModelYear || "";
-        document.getElementById("make").value = result.Make || "";
-        document.getElementById("model").value = result.Model || "";
+  </div>
 
-    } catch (err) {
-        alert("VIN Decode Failed — Manual Entry OK");
-    }
-}
-
-/* ===========================
-   SAVE TO GOOGLE SHEET
-   =========================== */
-async function saveACV() {
-
-    const acv = calculateACV();
-    document.getElementById("acvBox").innerText = "ACV: $" + acv;
-
-    const payload = {
-        action: "save",
-        timestamp: new Date().toISOString(),
-        customerName: document.getElementById("customerName").value,
-        appraiser: document.getElementById("appraiser").value,
-        store: document.querySelector("input[name='store']:checked")?.value || "",
-        vin: document.getElementById("vin").value,
-        year: document.getElementById("year").value,
-        make: document.getElementById("make").value,
-        model: document.getElementById("model").value,
-        jdRetail: document.getElementById("jdRetail").value,
-        cleanTrade: document.getElementById("cleanTrade").value,
-        roughTrade: document.getElementById("roughTrade").value,
-        serviceEstimate: document.getElementById("serviceEstimate").value,
-        npaOffer: document.getElementById("npaOffer").value,
-        mileage: document.getElementById("mileage").value,
-        acv: acv,
-        notes: document.getElementById("notes").value
-    };
-
-    await fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify(payload)
+  <script>
+    // Placeholder click handler for disabled Decode button
+    document.querySelector('.decode-btn').addEventListener('click', function() {
+      alert("VIN decoder is currently disabled.\nAwaiting API credentials from DataOne Software (powersports trial requested).\nWe'll enable this as soon as we have the key!");
     });
-
-    alert("Appraisal Saved!");
-}
-
-/* ===========================
-   ACV CALCULATION
-   =========================== */
-function calculateACV() {
-    const retail = Number(document.getElementById("jdRetail").value) || 0;
-    const clean = Number(document.getElementById("cleanTrade").value) || 0;
-    const rough = Number(document.getElementById("roughTrade").value) || 0;
-    const svc = Number(document.getElementById("serviceEstimate").value) || 0;
-    const npa = Number(document.getElementById("npaOffer").value) || 0;
-
-    let base = (clean + retail + rough) / 3;
-    base = base - svc;
-
-    return Math.max(base, npa);
-}
-</script>
+  </script>
 
 </body>
 </html>
