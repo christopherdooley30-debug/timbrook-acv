@@ -1,3 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Timbrook Honda – Motorcycle Trade ACV</title>
+  <style>
+    :root {
+      --red: #f94144;
+      --red-dark: #d90429;
+      --bg: #1d1d1d;
+      --card: #2a2a2a;
+      --text: #fff;
+      --input: #333;
+      --border: #555;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+    }
+    header {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    header img {
+      height: 90px;
+      width: auto;
+    }
+    h1 {
+      font-weight: 800;
+      font-size: 2.1rem;
+      color: #fff;
+      text-align: center;
+      flex: 1;
+      min-width: 280px;
+      margin: 0;
+    }
+    .page {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+    .grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .card {
+      background: var(--card);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.5);
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      color: var(--red);
+      font-size: .9rem;
+      margin-bottom: 4px;
+    }
+    input[type=text],
+    input[type=number],
+    textarea {
+      width: 100%;
+      padding: 9px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      background: var(--input);
+      color: #fff;
+      font-size: .95rem;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--red);
+    }
+    #storeGroup {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 6px;
+    }
+    .radio {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .radio label {
+      font-size: .9rem;
+      cursor: pointer;
+    }
+    .val {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 768px) {
+      .val { grid-template-columns: repeat(3, 1fr); }
+    }
+    button {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 11px 26px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      min-width: 230px;
+    }
+    button:hover {
+      background: var(--red-dark);
+    }
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    #decodeBtn {
+      margin-top: 8px;
+      width: 100%;
+    }
+    #acvBox {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--red);
+      text-align: center;
+      min-width: 340px;
+      display: inline-block;
+      box-shadow: 0 6px 24px rgba(249,65,68,.3);
+      border: 2px solid var(--red);
+    }
+    #saveWrap {
+      grid-column: 1/-1;
+      display: flex;
+      justify-content: center;
+      margin: 15px 0 10px;
+    }
+    .required-hint {
+      grid-column: 1/-1;
+      text-align: center;
+      color: #ff8e8e;
+      font-size: .85rem;
+      margin: 10px 0;
+    }
+    #dooleyOverlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,.95);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    #dooleyBox {
+      background: #111;
+      color: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 0 40px var(--red);
+      border: 4px solid var(--red);
+    }
+    #dooleyBox h2 {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: var(--red);
+    }
+    #dooleyClose {
+      margin-top: 30px;
+      padding: 12px 30px;
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="images/Cumberland.jpg" alt="Timbrook Honda of Cumberland">
+  <h1>Motorcycle Trade ACV</h1>
+  <img src="images/Winchester.jpg" alt="Timbrook Honda of Winchester">
+</header>
+
+<div class="page">
+  <div class="grid">
+    <div class="card">
+      <label>Customer Name</label>
+      <input id="customerName" type="text">
+      <label style="margin-top:8px">Appraiser</label>
+      <input id="appraiser" type="text">
+      <label style="margin-top:8px">Store</label>
+      <div id="storeGroup">
+        <div class="radio">
+          <input type="radio" name="store" value="Winchester" id="win" checked>
+          <label for="win">Winchester</label>
+        </div>
+        <div class="radio">
+          <input type="radio" name="store" value="Cumberland" id="cumb">
+          <label for="cumb">Cumberland</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>VIN (optional)</label>
+      <input id="vin" type="text" maxlength="17" placeholder="17 digits">
+      <button id="decodeBtn" disabled>Decode VIN</button>
+    </div>
+
+    <div class="card">
+      <label>Year</label>
+      <input id="year" type="text">
+      <label>Make</label>
+      <input id="make" type="text">
+      <label>Model</label>
+      <input id="model" type="text">
+    </div>
+
+    <div class="card val" style="grid-column:1/-1">
+      <div><label>JD Retail ($)</label><input id="jdRetail" type="number" step="0.01"></div>
+      <div><label>Clean Trade ($)</label><input id="cleanTrade" type="number" step="0.01"></div>
+      <div><label>Rough Trade ($)</label><input id="roughTrade" type="number" step="0.01"></div>
+      <div><label>Service ($)</label><input id="recon" type="number" step="0.01"></div>
+      <div><label>NPA Offer ($)</label><input id="npaOffer" type="number" step="0.01"></div>
+      <div><label>Mileage</label><input id="mileage" type="number"></div>
+    </div>
+
+    <div class="card" style="grid-column:1/-1">
+      <label>Notes</label>
+      <textarea id="notes" rows="3"></textarea>
+    </div>
+
+    <div class="required-hint">
+      Fill Appraiser • Store • Year • Make • Model to enable Save
+    </div>
+
+    <div style="grid-column:1/-1;text-align:center">
+      <div id="acvBox">Enter values → ACV appears here</div>
+    </div>
+
+    <div id="saveWrap">
+      <button id="saveBtn" disabled>Save & Log Appraisal</button>
+    </div>
+  </div>
+</div>
+
+<!-- DOOLEY POP-UP -->
+<div id="dooleyOverlay">
+  <div id="dooleyBox">
+    <h2>Uh-oh, big guy.<br>This one's above our pay grade.<br>Better bring in Dooley.</h2>
+    <button id="dooleyClose">Close</button>
+  </div>
+</div>
+
 <script>
 (() => {
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybDOB9aIZ8vYJPx_efJDHLGsOVYKMMUPKZ6yGcLg9loyaFJv9EkyPV6GfN7oPw6qFW/exec";
@@ -11,15 +282,13 @@
     notes: $('notes'), acvBox: $('acvBox'), saveBtn: $('saveBtn')
   };
 
-  // Real-time calculation on value changes
+  // Real-time ACV update
   const valueFields = [els.jdRetail, els.cleanTrade, els.roughTrade, els.recon, els.npaOffer, els.mileage];
   valueFields.forEach(el => el.addEventListener('input', calculate));
 
-  // Save button enable on required fields
+  // Save button enable
   const required = [els.appraiser, els.year, els.make, els.model];
   required.forEach(el => el.addEventListener('input', checkSave));
-
-  // Run checkSave also when store radio buttons change
   document.querySelectorAll('input[name="store"]').forEach(radio => {
     radio.addEventListener('change', checkSave);
   });
@@ -60,72 +329,48 @@
     } else {
       els.acvBox.innerHTML = `FINAL ACV<br><strong>${formatted}</strong>`;
     }
+
+    return acv; // Return for use in save click
   }
 
   function checkSave() {
     const storeOk = document.querySelector('input[name="store"]:checked');
-    const ready = els.appraiser.value.trim() && 
-                  storeOk && 
-                  els.year.value.trim() && 
-                  els.make.value.trim() && 
+    const ready = els.appraiser.value.trim() && storeOk && 
+                  els.year.value.trim() && els.make.value.trim() && 
                   els.model.value.trim();
-    
     els.saveBtn.disabled = !ready;
-    
-    // Optional: visual feedback
-    if (ready) {
-      els.saveBtn.style.opacity = '1';
-      els.saveBtn.style.cursor = 'pointer';
-    } else {
-      els.saveBtn.style.opacity = '0.6';
-      els.saveBtn.style.cursor = 'not-allowed';
-    }
   }
 
-  // Dooley only on leaving the mileage field
-  els.mileage.addEventListener('blur', () => {
-    const clean = Number(els.cleanTrade.value) || 0;
-    const rough = Number(els.roughTrade.value) || 0;
-    const npa = Number(els.npaOffer.value) || 0;
-    const recon = Number(els.recon.value) || 0;
-    const miles = Number(els.mileage.value) || 0;
+  // Dooley popup on SAVE click only (if large disparity)
+  els.saveBtn.onclick = () => {
+    const acv = calculate(); // Run calc to get current ACV
     const jd = Number(els.jdRetail.value) || 0;
 
-    let base = (clean + rough + npa) / 3;
-    if (npa >= clean && clean > 0) {
-      base = (rough * 1.4 + npa * 1.4 + clean * 0.2) / 3;
-    }
+    const disparity = acv < (jd * 0.7) && jd > 0 && acv > 0;
 
-    const mileagePenalty = miles > 10000 ? (miles - 10000) * 0.06 : 0;
-    const beforeDiscount = base - recon - mileagePenalty;
-
-    const discount = jd >= 21000 ? 0.95 : jd >= 10000 ? 0.90 : 0.85;
-    const acv = beforeDiscount * discount;
-
-    const storeOk = document.querySelector('input[name="store"]:checked');
-    const readyForSave = els.appraiser.value.trim() && storeOk && 
-                        els.year.value.trim() && els.make.value.trim() && 
-                        els.model.value.trim();
-
-    const valuesFilled = jd > 0 && clean > 0 && rough > 0 && npa > 0 && recon >= 0 && miles > 0;
-
-    if (readyForSave && valuesFilled && acv < (jd * 0.7)) {
+    if (disparity) {
+      // Show Dooley first
       document.getElementById("dooleyOverlay").style.display = "flex";
-    }
-  });
 
-  // Close Dooley
-  document.getElementById("dooleyClose").onclick = () => {
-    document.getElementById("dooleyOverlay").style.display = "none";
-  };
-  document.getElementById("dooleyOverlay").onclick = (e) => {
-    if (e.target === document.getElementById("dooleyOverlay")) {
-      document.getElementById("dooleyOverlay").style.display = "none";
+      // After closing Dooley, proceed with save
+      const closeDooley = () => {
+        document.getElementById("dooleyOverlay").style.display = "none";
+        performSave();
+        document.getElementById("dooleyClose").removeEventListener("click", closeDooley);
+        document.getElementById("dooleyOverlay").removeEventListener("click", closeDooley);
+      };
+
+      document.getElementById("dooleyClose").addEventListener("click", closeDooley);
+      document.getElementById("dooleyOverlay").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("dooleyOverlay")) closeDooley();
+      });
+    } else {
+      // No disparity → save immediately
+      performSave();
     }
   };
 
-  // SAVE logic
-  els.saveBtn.onclick = () => {
+  function performSave() {
     els.saveBtn.disabled = true;
     els.saveBtn.textContent = "Saving...";
     const store = document.querySelector('input[name="store"]:checked')?.value || '';
@@ -168,8 +413,19 @@
     els.acvBox.innerHTML = "Enter values → ACV appears here";
     els.saveBtn.disabled = false;
     els.saveBtn.textContent = "Save & Log Appraisal";
+  }
+
+  // Close Dooley (fallback)
+  document.getElementById("dooleyClose").onclick = () => {
+    document.getElementById("dooleyOverlay").style.display = "none";
+  };
+  document.getElementById("dooleyOverlay").onclick = (e) => {
+    if (e.target === document.getElementById("dooleyOverlay")) {
+      document.getElementById("dooleyOverlay").style.display = "none";
+    }
   };
 
+  // Hidden iframe
   const iframe = document.createElement('iframe');
   iframe.name = 'hiddenIframe';
   iframe.style.display = 'none';
@@ -180,3 +436,5 @@
   checkSave();
 })();
 </script>
+</body>
+</html>
