@@ -330,7 +330,7 @@
       els.acvBox.innerHTML = `FINAL ACV<br><strong>${formatted}</strong>`;
     }
 
-    return acv; // Return for use in save click
+    return acv; // For use in save click
   }
 
   function checkSave() {
@@ -341,31 +341,34 @@
     els.saveBtn.disabled = !ready;
   }
 
-  // Dooley popup on SAVE click only (if large disparity)
+  // Save click handler with Dooley check
   els.saveBtn.onclick = () => {
-    const acv = calculate(); // Run calc to get current ACV
+    const acv = calculate(); // Get current ACV
     const jd = Number(els.jdRetail.value) || 0;
+    const miles = Number(els.mileage.value) || 0;
 
-    const disparity = acv < (jd * 0.7) && jd > 0 && acv > 0;
+    // Option 1: Percentile-based threshold with mileage buffer
+    const baseThreshold = jd * 0.70; // 70% of retail (adjustable)
+    const anomalyThreshold = miles > 15000 ? baseThreshold * 0.90 : baseThreshold; // 10% lower tolerance for high miles
+
+    const disparity = acv < anomalyThreshold && jd > 0 && acv > 0;
 
     if (disparity) {
       // Show Dooley first
       document.getElementById("dooleyOverlay").style.display = "flex";
 
-      // After closing Dooley, proceed with save
-      const closeDooley = () => {
+      // Proceed with save after Dooley is closed
+      const proceedAfterClose = () => {
         document.getElementById("dooleyOverlay").style.display = "none";
         performSave();
-        document.getElementById("dooleyClose").removeEventListener("click", closeDooley);
-        document.getElementById("dooleyOverlay").removeEventListener("click", closeDooley);
       };
 
-      document.getElementById("dooleyClose").addEventListener("click", closeDooley);
-      document.getElementById("dooleyOverlay").addEventListener("click", (e) => {
-        if (e.target === document.getElementById("dooleyOverlay")) closeDooley();
-      });
+      document.getElementById("dooleyClose").onclick = proceedAfterClose;
+      document.getElementById("dooleyOverlay").onclick = (e) => {
+        if (e.target === document.getElementById("dooleyOverlay")) proceedAfterClose();
+      };
     } else {
-      // No disparity → save immediately
+      // No flag → save immediately
       performSave();
     }
   };
@@ -414,16 +417,6 @@
     els.saveBtn.disabled = false;
     els.saveBtn.textContent = "Save & Log Appraisal";
   }
-
-  // Close Dooley (fallback)
-  document.getElementById("dooleyClose").onclick = () => {
-    document.getElementById("dooleyOverlay").style.display = "none";
-  };
-  document.getElementById("dooleyOverlay").onclick = (e) => {
-    if (e.target === document.getElementById("dooleyOverlay")) {
-      document.getElementById("dooleyOverlay").style.display = "none";
-    }
-  };
 
   // Hidden iframe
   const iframe = document.createElement('iframe');
