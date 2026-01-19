@@ -10,164 +10,133 @@
       font-family: Arial, Helvetica, sans-serif;
       background-color: #111;
       color: #eee;
+      font-size: 14px;
     }
     .top-header {
       background-color: #c8102e;
-      padding: 15px 20px;
+      padding: 8px 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
+    }
+    .logo {
+      height: 60px;
+      width: auto;
     }
     .title {
       color: white;
-      font-size: 2em;
+      font-size: 1.6em;
       font-weight: bold;
       text-align: center;
       flex: 1;
-      min-width: 300px;
-    }
-    .logo {
-      max-height: 80px;
-      width: auto;
     }
     .container {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 0 20px;
+      max-width: 1100px;
+      margin: 10px auto;
+      padding: 0 15px;
     }
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 12px;
     }
     .section {
       background-color: #1a1a1a;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 12px;
+      border-radius: 6px;
     }
     .full-width {
       grid-column: span 3;
     }
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+      font-size: 0.95em;
+    }
     input, textarea {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
+      padding: 6px;
       background-color: #333;
       color: white;
       border: 1px solid #555;
       border-radius: 4px;
       box-sizing: border-box;
+      font-size: 1em;
     }
     input:disabled, textarea:disabled {
       background-color: #222;
       color: #777;
     }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
     .radio-group {
-      margin: 10px 0;
+      margin: 6px 0;
+      font-size: 0.95em;
     }
     .btn {
       background-color: #c8102e;
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 1.1em;
-      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 1em;
+      border-radius: 5px;
       cursor: pointer;
       width: 100%;
-      margin-top: 10px;
+      margin-top: 6px;
     }
     .btn:disabled {
       background-color: #555;
       cursor: not-allowed;
     }
     .decode-btn {
-      background-color: #c8102e;
-      margin-top: 28px;
-    }
-    .decode-btn:disabled {
-      background-color: #555;
+      background-color: #777;
+      margin-top: 20px;
     }
     .jd-section {
-      text-align: center;
       background-color: #1a1a1a;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 30px 0;
+      padding: 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+      text-align: center;
     }
     .jd-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+      gap: 10px;
     }
     .acv-final {
       text-align: center;
-      font-size: 2.5em;
+      font-size: 2em;
       background-color: #c8102e;
-      padding: 25px;
-      border-radius: 8px;
-      margin: 40px 0;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
       font-weight: bold;
     }
     .footer-note {
       text-align: center;
       color: #aaa;
-      margin: 20px 0;
-      font-size: 0.9em;
+      font-size: 0.85em;
+      margin: 10px 0;
     }
     @media (max-width: 900px) {
       .grid, .jd-grid { grid-template-columns: 1fr; }
-      .top-header { flex-direction: column; text-align: center; }
-      .title { margin: 10px 0; }
+      .top-header { flex-wrap: wrap; justify-content: center; }
+      .title { margin: 8px 0; }
+      .logo { height: 50px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Red Header with Logos and Title -->
+  <!-- Header with your uploaded JPEG logos -->
   <div class="top-header">
-    <!-- Cumberland Logo (left) -->
-    <svg class="logo" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
-      <style>
-        text { font-family: Arial Black, sans-serif; font-weight: bold; fill: #c8102e; }
-        .highlight { fill: #000; }
-      </style>
-      <text x="50" y="100" font-size="110">TIMBROOK</text>
-      <text x="50" y="200" font-size="90">OF CUMBERLAND</text>
-      <text x="550" y="100" font-size="100" class="highlight">Honda</text>
-      <!-- Checkered flag -->
-      <rect x="50" y="220" width="900" height="40" fill="#000"/>
-      <rect x="50" y="220" width="112.5" height="40" fill="#c8102e"/>
-      <rect x="162.5" y="220" width="112.5" height="40" fill="#000"/>
-      <rect x="275" y="220" width="112.5" height="40" fill="#c8102e"/>
-      <!-- Stylized waves/mountains -->
-      <path d="M50 220 Q200 180 350 220 Q500 180 650 220" fill="none" stroke="#000" stroke-width="12"/>
-    </svg>
+    <!-- Left: Cumberland Logo -->
+    <img src="images/timbrook-honda-cumberland.jpg" alt="Timbrook Honda of Cumberland" class="logo">
 
     <div class="title">Motorcycle Trade ACV</div>
 
-    <!-- Winchester Logo (right) -->
-    <svg class="logo" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
-      <style>
-        text { font-family: Arial Black, sans-serif; font-weight: bold; fill: #c8102e; }
-        .highlight { fill: #000; }
-      </style>
-      <text x="50" y="100" font-size="110">TIMBROOK</text>
-      <text x="50" y="200" font-size="90">OF WINCHESTER</text>
-      <text x="550" y="100" font-size="100" class="highlight">Honda</text>
-      <!-- Checkered flag -->
-      <rect x="50" y="220" width="900" height="40" fill="#000"/>
-      <rect x="50" y="220" width="112.5" height="40" fill="#c8102e"/>
-      <rect x="162.5" y="220" width="112.5" height="40" fill="#000"/>
-      <rect x="275" y="220" width="112.5" height="40" fill="#c8102e"/>
-      <!-- Stylized waves/mountains -->
-      <path d="M50 220 Q200 180 350 220 Q500 180 650 220" fill="none" stroke="#000" stroke-width="12"/>
-    </svg>
+    <!-- Right: Winchester Logo -->
+    <img src="images/timbrook-honda-winchester.jpg" alt="Timbrook Honda of Winchester" class="logo">
   </div>
 
   <div class="container">
@@ -183,10 +152,10 @@
         <label>Store</label>
         <div class="radio-group">
           <input type="radio" name="store" id="winchester" checked>
-          <label for="winchester" style="display:inline; color:#eee;">Winchester</label>
-          &nbsp;&nbsp;&nbsp;
+          <label for="winchester" style="display:inline;">Winchester</label>
+          &nbsp;
           <input type="radio" name="store" id="cumberland">
-          <label for="cumberland" style="display:inline; color:#eee;">Cumberland</label>
+          <label for="cumberland" style="display:inline;">Cumberland</label>
         </div>
       </div>
 
@@ -212,8 +181,8 @@
       </div>
     </div>
 
-    <div class="full-width jd-section">
-      <h3 style="color:#c8102e; margin:0 0 15px;">JD Values</h3>
+    <div class="jd-section full-width">
+      <h3 style="color:#c8102e; margin:0 0 8px;">JD Values</h3>
       <div class="jd-grid">
         <div>
           <label>JD Retail ($)</label>
@@ -245,29 +214,28 @@
       </div>
     </div>
 
-    <div class="full-width section" style="margin-top:20px;">
+    <div class="full-width section" style="margin-top:12px;">
       <label>Notes</label>
-      <textarea rows="4" disabled></textarea>
+      <textarea rows="3" disabled></textarea>
     </div>
 
     <div class="acv-final">
       FINAL ACV<br>$
     </div>
 
-    <button class="btn" style="font-size:1.4em;" disabled>
+    <button class="btn" style="font-size:1.2em;" disabled>
       Save & Log Appraisal
     </button>
 
     <div class="footer-note">
-      Fill Appraiser • Store • Year • Make • Model to enable Save<br>
-      VIN Decoder & JD Power integration pending API credentials
+      Fill Appraiser • Store • Year • Make • Model to enable Save • VIN Decoder pending
     </div>
 
   </div>
 
   <script>
     document.querySelector('.decode-btn').addEventListener('click', function() {
-      alert("VIN decoder is currently disabled.\nAwaiting API credentials from DataOne Software (powersports trial requested).\nWe'll enable this as soon as we have the key!");
+      alert("VIN decoder is currently disabled.\nAwaiting API credentials from DataOne Software.");
     });
   </script>
 
