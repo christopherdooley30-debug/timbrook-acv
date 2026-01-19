@@ -30,10 +30,11 @@
       text-align: center;
       flex: 1;
     }
-    .container {
-      max-width: 1100px;
-      margin: 10px auto;
-      padding: 0 15px;
+    /* Main content - full width below header */
+    .main-content {
+      padding: 10px 15px;
+      max-width: 1400px; /* Slightly wider for better full-width feel */
+      margin: 0 auto;
     }
     .grid {
       display: grid;
@@ -105,12 +106,16 @@
     }
     .acv-final {
       text-align: center;
-      font-size: 2em;
+      font-size: 2.2em;
       background-color: #c8102e;
-      padding: 15px;
+      padding: 20px;
       border-radius: 6px;
       margin: 20px 0;
       font-weight: bold;
+    }
+    .save-btn-container {
+      text-align: center;
+      margin: 15px 0;
     }
     .footer-note {
       text-align: center;
@@ -123,23 +128,21 @@
       .top-header { flex-wrap: wrap; justify-content: center; }
       .title { margin: 8px 0; }
       .logo { height: 50px; }
+      .main-content { padding: 10px 10px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header with your uploaded JPEG logos -->
+  <!-- Header with logos -->
   <div class="top-header">
-    <!-- Left: Cumberland Logo -->
     <img src="images/Cumberland.jpg" alt="Timbrook Honda of Cumberland" class="logo">
-
     <div class="title">Motorcycle Trade ACV</div>
-
-    <!-- Right: Winchester Logo -->
     <img src="images/Winchester.jpg" alt="Timbrook Honda of Winchester" class="logo">
   </div>
 
-  <div class="container">
+  <!-- All content below header is now full-width -->
+  <div class="main-content">
 
     <div class="grid">
       <div class="section">
@@ -223,9 +226,11 @@
       FINAL ACV<br>$
     </div>
 
-    <button class="btn" style="font-size:1.2em;" disabled>
-      Save & Log Appraisal
-    </button>
+    <div class="save-btn-container">
+      <button class="btn" style="font-size:1.2em; max-width: 400px;" disabled>
+        Save & Log Appraisal
+      </button>
+    </div>
 
     <div class="footer-note">
       Fill Appraiser • Store • Year • Make • Model to enable Save • VIN Decoder pending
