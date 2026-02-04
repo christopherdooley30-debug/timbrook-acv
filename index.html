@@ -282,6 +282,13 @@
     notes: $('notes'), acvBox: $('acvBox'), saveBtn: $('saveBtn')
   };
 
+  // ===== Integrity-first uplift settings =====
+  // Target: make final ACV ~5–10% higher while keeping outputs "sane"
+  const UPLIFT = 1.07;           // 1.05–1.10 (set to taste)
+  const CAP_CLEAN_PCT = 0.98;    // never exceed ~98% of Clean Trade (when Clean Trade provided)
+  const CAP_JD_PCT = 0.90;       // never exceed 90% of JD Retail (when JD Retail provided)
+  // ==========================================
+
   // Real-time ACV update
   const valueFields = [els.jdRetail, els.cleanTrade, els.roughTrade, els.recon, els.npaOffer, els.mileage];
   valueFields.forEach(el => el.addEventListener('input', calculate));
@@ -301,21 +308,36 @@
   function calculate() {
     const clean = Number(els.cleanTrade.value) || 0;
     const rough = Number(els.roughTrade.value) || 0;
-    const npa = Number(els.npaOffer.value) || 0;
+    const npa   = Number(els.npaOffer.value) || 0;
     const recon = Number(els.recon.value) || 0;
     const miles = Number(els.mileage.value) || 0;
-    const jd = Number(els.jdRetail.value) || 0;
+    const jd    = Number(els.jdRetail.value) || 0;
 
+    // Base from the three market inputs
     let base = (clean + rough + npa) / 3;
+
+    // If NPA is strong relative to clean, weight toward NPA + rough (keeps your original intent)
     if (npa >= clean && clean > 0) {
       base = (rough * 1.4 + npa * 1.4 + clean * 0.2) / 3;
     }
 
+    // Mileage penalty + recon
     const mileagePenalty = miles > 10000 ? (miles - 10000) * 0.06 : 0;
     const beforeDiscount = base - recon - mileagePenalty;
 
+    // Retail-based discount tiers (your original)
     const discount = jd >= 21000 ? 0.95 : jd >= 10000 ? 0.90 : 0.85;
-    const acv = beforeDiscount * discount;
+
+    // Final ACV with uplift (integrity guardrails applied)
+    let acv = beforeDiscount * discount * UPLIFT;
+
+    // Guardrail 1: never negative
+    acv = Math.max(0, acv);
+
+    // Guardrail 2: caps so uplift can't create unrealistic results
+    const capByClean = clean > 0 ? clean * CAP_CLEAN_PCT : Infinity;
+    const capByJd    = jd > 0 ? jd * CAP_JD_PCT : Infinity;
+    acv = Math.min(acv, capByClean, capByJd);
 
     const formatted = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -335,8 +357,8 @@
 
   function checkSave() {
     const storeOk = document.querySelector('input[name="store"]:checked');
-    const ready = els.appraiser.value.trim() && storeOk && 
-                  els.year.value.trim() && els.make.value.trim() && 
+    const ready = els.appraiser.value.trim() && storeOk &&
+                  els.year.value.trim() && els.make.value.trim() &&
                   els.model.value.trim();
     els.saveBtn.disabled = !ready;
   }
@@ -410,12 +432,18 @@
     form.submit();
     form.remove();
     alert("Saved & logged successfully!");
+
+    // Reset fields
     document.querySelectorAll('input:not([type="radio"])').forEach(i => i.value = '');
     document.querySelectorAll('textarea').forEach(t => t.value = '');
-    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+
+    // Keep your original default (Winchester checked) after reset
+    document.getElementById('win').checked = true;
+
     els.acvBox.innerHTML = "Enter values → ACV appears here";
     els.saveBtn.disabled = false;
     els.saveBtn.textContent = "Save & Log Appraisal";
+    checkSave();
   }
 
   // Close Dooley (fallback)
